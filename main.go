@@ -1,4 +1,4 @@
-package go_login_sys
+package main
 
 import (
 	"github.com/gorilla/mux"
