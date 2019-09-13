@@ -1,2 +1,2 @@
 # go-login
-golang login
+Login system created with go language
