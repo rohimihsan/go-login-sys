@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/rohimihsan/go-login-sys/controllers"
 	"github.com/rohimihsan/go-login-sys/middleware"
-	"github.com/rohimihsan/mongotest/controllers"
 	"log"
 	"net/http"
 )
@@ -18,7 +18,13 @@ func main() {
 	//test middleware
 	t.Use(middleware.MiddlewareAllowOnlyGet)
 
-	r.HandleFunc("/lol", controllers.TestUp).Methods("GET")
+	user := r.PathPrefix("/user").Subrouter()
+	user.HandleFunc("/{id}", controllers.Profile).Methods("GET")
+	//user.Use(middleware.MiddlewareAuth)
+
+	r.HandleFunc("/", controllers.TestUp).Methods("GET")
+	r.HandleFunc("/register", controllers.Register).Methods("POST")
+	r.HandleFunc("/login", controllers.Login).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8080", r))
 }

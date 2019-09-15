@@ -6,6 +6,7 @@ type User struct {
 	Id          primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	firstname   string
 	lastname    string
+	username    string
 	email       string
 	user_number string
 	created_at  primitive.Timestamp
