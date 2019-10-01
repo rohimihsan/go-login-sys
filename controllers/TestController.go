@@ -17,5 +17,7 @@ func TestConn(w http.ResponseWriter, r *http.Request) {
 }
 
 func TestUp(w http.ResponseWriter, r *http.Request) {
+	//random := strconv.Itoa(rand.Intn(9999))
+
 	fmt.Fprint(w, "Server is up")
 }

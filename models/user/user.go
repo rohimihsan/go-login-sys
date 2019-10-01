@@ -1,6 +1,9 @@
 package user
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"time"
+)
 
 type User struct {
 	Id          primitive.ObjectID  `json:"id" bson:"_id,omitempty"`
@@ -10,6 +13,6 @@ type User struct {
 	Email       string              `json:"email" validate:"required,email"`
 	Password    string              `validate:"required"`
 	User_number string              `json:"user_number"`
-	Created_at  primitive.Timestamp `json:"created_at"`
-	Updated_at  primitive.Timestamp `json:"updated_at"`
+	Created_at  time.Time `json:"created_at"`
+	Updated_at  time.Time `json:"updated_at"`
 }

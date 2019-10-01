@@ -1,24 +1,64 @@
 package controllers
 
 import (
+	"context"
 	"encoding/json"
+	"github.com/rohimihsan/go-login-sys/config/db"
 	"github.com/rohimihsan/go-login-sys/models"
 	"github.com/rohimihsan/go-login-sys/models/user"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/go-playground/validator.v9"
+	"math/rand"
 	"net/http"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	//email := r.FormValue("email")
+	email := r.FormValue("email")
 	pass := r.FormValue("password")
-	hash := r.FormValue("hash")
+	//hash := r.FormValue("hash")
 
 	var res models.ResponseResult
 
-	match := CheckPasswordHash(pass, hash)
+	//validate input
+	v := validator.New()
+	err := v.Struct(user.User{
+		Firstname: " ", //bypass required check
+		Lastname: " ", //bypass required check
+		Email:    email,
+		Password: pass,
+	})
+
+	if err != nil {
+		res.Error = err.Error()
+		res.Data = err.(validator.ValidationErrors)
+
+		json.NewEncoder(w).Encode(res)
+		return
+	}
+
+	//get db
+	db, _ := db.Con()
+
+	var result user.User
+
+	//check for mail
+	email_filter := bson.D{{"email", email}}
+
+	//get collection
+	err = db.Collection("users").FindOne(context.TODO(), email_filter).Decode(&result)
+
+	if err != nil {
+		res.Error = err.Error()
+		//res.Data = result
+		json.NewEncoder(w).Encode(res)
+		return
+	}
+
+	match := CheckPasswordHash(pass, result.Password)
 
 	res.Data = match
 	json.NewEncoder(w).Encode(res)
@@ -31,8 +71,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	firstname := r.FormValue("firstname")
 	lastname := r.FormValue("lastname")
 
-	v := validator.New()
+	var res models.ResponseResult
 
+	//prepare data
 	a := user.User{
 		Email:     email,
 		Password:  pass,
@@ -40,9 +81,9 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		Lastname:  lastname,
 	}
 
+	//validate input
+	v := validator.New()
 	err := v.Struct(a)
-
-	var res models.ResponseResult
 
 	if err != nil {
 		res.Error = err.Error()
@@ -52,10 +93,32 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	name := []string{firstname, lastname}
+	//get db
+	db, _ := db.Con()
+	var result user.User
 
+	//check for mail
+	email_filter := bson.D{{"email", email}}
+
+	//get collection
+	err = db.Collection("users").FindOne(context.TODO(), email_filter).Decode(&result)
+
+	if result.Email == email {
+		res.Error = err.Error()
+		res.Result = "Email already Exist"
+		//res.Data = result
+		json.NewEncoder(w).Encode(res)
+		return
+	}
+
+	//create user name
+	name := []string{firstname, lastname}
 	username := strings.Join(name, ".")
 
+	//check if username exist
+	uname := UnameGenerator(username)
+
+	//hash password
 	hash, err := HashPassword(pass)
 
 	if err != nil {
@@ -67,14 +130,58 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var user_data = bson.D{
+		{"firstname", firstname},
+		{"lastname", lastname},
+		{"username", uname},
 		{"email", email},
 		{"password", hash},
-		{"username", username},
+		{"created_at", time.Now()},
 	}
 
-	res.Data = user_data
+	insertResult, err := db.Collection("users").InsertOne(context.TODO(), user_data)
+
+	if err != nil {
+		res.Result = "Error Occurred when trying to store data"
+		res.Error = err.Error()
+		json.NewEncoder(w).Encode(res)
+		return
+	}
+
+	res.Result = "Success creating account "
+	res.Data = insertResult
 	json.NewEncoder(w).Encode(res)
 	return
+}
+
+//== Utillity ==
+func UnameGenerator(username string) string {
+	random := strconv.Itoa(rand.Intn(9999))
+
+	name := []string{username, random}
+
+	new := strings.Join(name, "")
+
+	//get db
+	db, _ := db.Con()
+
+	//check if username exist
+	uname_filter := bson.D{{"username", username}}
+
+	var result user.User
+
+	db.Collection("users").FindOne(context.TODO(), uname_filter).Decode(&result)
+
+	for result.Username == new {
+		db.Collection("users").FindOne(context.TODO(), uname_filter).Decode(&result)
+
+		random := strconv.Itoa(rand.Intn(9999))
+
+		name := []string{username, random}
+
+		new = strings.Join(name, ".")
+	}
+
+	return new
 }
 
 func HashPassword(password string) (string, error) {
