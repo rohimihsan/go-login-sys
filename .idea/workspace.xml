@@ -3,13 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e675311a-5551-4511-a2d1-2bef148c6645" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/db/db.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/AuthController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/TestController.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/TestController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/middleware/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/token_access.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/token_access.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user/user_profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user/user_profile.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,31 +20,55 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="26" column="59" selection-start-line="26" selection-start-column="59" selection-end-line="26" selection-end-column="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/TestController.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8">
-              <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+            <state relative-caret-position="230">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/middleware/middleware.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
+              <folding>
+                <element signature="e#20#53#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/UserController.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="35" column="27" lean-forward="true" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/AuthController.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+            <state relative-caret-position="229">
+              <caret line="57" column="14" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="57" selection-end-column="14" />
               <folding>
                 <element signature="e#21#354#0" expanded="true" />
                 <element signature="n#!!block;n#UnameGenerator#0" />
                 <element signature="n#!!block;n#HashPassword#0" />
                 <element signature="n#!!block;n#CheckPasswordHash#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/token_access.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+              <folding>
+                <element signature="e#16#80#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,18 +104,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/token_access.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
-              <folding>
-                <element signature="e#16#80#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -115,15 +125,15 @@
         <option value="$PROJECT_DIR$/models/result.go" />
         <option value="$PROJECT_DIR$/models/dynamic_field.go" />
         <option value="$PROJECT_DIR$/middleware/allowGetOnly.go" />
-        <option value="$PROJECT_DIR$/controllers/UserController.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/config/db.go" />
-        <option value="$PROJECT_DIR$/middleware/middleware.go" />
         <option value="$PROJECT_DIR$/controllers/TestController.go" />
         <option value="$PROJECT_DIR$/models/user/user.go" />
         <option value="$PROJECT_DIR$/models/user/user_profile.go" />
-        <option value="$PROJECT_DIR$/models/token_access.go" />
+        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/controllers/AuthController.go" />
+        <option value="$PROJECT_DIR$/controllers/UserController.go" />
+        <option value="$PROJECT_DIR$/models/token_access.go" />
+        <option value="$PROJECT_DIR$/middleware/middleware.go" />
       </list>
     </option>
   </component>
@@ -234,7 +244,7 @@
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32850242" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32850242" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33011273" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -250,30 +260,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/UserController.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="10" selection-start-line="18" selection-start-column="4" selection-end-line="19" selection-end-column="10" />
-          <folding>
-            <element signature="e#21#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="26" column="59" selection-start-line="26" selection-start-column="59" selection-end-line="26" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/middleware/middleware.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -301,16 +287,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/token_access.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
-          <folding>
-            <element signature="e#16#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/user/user.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -323,20 +299,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/TestController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
+        <state relative-caret-position="85">
           <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/AuthController.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+        <state relative-caret-position="229">
+          <caret line="57" column="14" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="57" selection-end-column="14" />
           <folding>
             <element signature="e#21#354#0" expanded="true" />
             <element signature="n#!!block;n#UnameGenerator#0" />
             <element signature="n#!!block;n#HashPassword#0" />
             <element signature="n#!!block;n#CheckPasswordHash#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/token_access.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+          <folding>
+            <element signature="e#16#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/UserController.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="35" column="27" lean-forward="true" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/middleware/middleware.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
+          <folding>
+            <element signature="e#20#53#0" expanded="true" />
           </folding>
         </state>
       </provider>

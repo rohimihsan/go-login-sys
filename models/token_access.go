@@ -7,10 +7,11 @@ import (
 
 type Token_access struct {
 	Id         primitive.ObjectID `json:"id" bson:"_id,omitempty"`
-	user_id    primitive.ObjectID `json:"user_id"`
-	token      string
-	ip         string
-	mac_addr   string
-	created_at time.Time
-	updated_at time.Time
+	User_id    primitive.ObjectID `json:"user_id"`
+	Token      string             `json:"token"`
+	Ip         string             `json:"ip"`
+	Mac_addr   string             `json:"mac_addr"`
+	Valid      bool               `json:"valid"`
+	Created_at time.Time          `json:"created_at"`
+	Updated_at time.Time          `json:"updated_at"`
 }

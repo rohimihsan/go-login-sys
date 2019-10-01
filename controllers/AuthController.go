@@ -27,9 +27,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	v := validator.New()
 	err := v.Struct(user.User{
 		Firstname: " ", //bypass required check
-		Lastname: " ", //bypass required check
-		Email:    email,
-		Password: pass,
+		Lastname:  " ", //bypass required check
+		Email:     email,
+		Password:  pass,
 	})
 
 	if err != nil {
@@ -60,7 +60,37 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	match := CheckPasswordHash(pass, result.Password)
 
-	res.Data = match
+	if !match {
+		res.Result = "Email and Password does not match"
+		json.NewEncoder(w).Encode(res)
+		return
+	}
+
+	//record token and login log
+	token := RandString(100)
+
+	var token_data = bson.D{
+		{"user_id", result.Id},
+		{"token", token},
+		{"valid", true},
+		{"created_at", time.Now()},
+	}
+
+	_, err = db.Collection("token_access").InsertOne(context.TODO(), token_data)
+
+	if err != nil {
+		res.Result = "Error Occurred when trying to store token"
+		res.Error = err.Error()
+		json.NewEncoder(w).Encode(res)
+		return
+	}
+
+	result.Password = ""
+	res.Result = "Login success"
+	res.Data = bson.D{
+		{"User", result},
+		{"Token", token},
+	}
 	json.NewEncoder(w).Encode(res)
 	return
 }
@@ -194,6 +224,12 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func UserProfile() {
+func RandString(n int) string {
+	const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+	return string(b)
 }

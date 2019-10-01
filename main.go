@@ -20,7 +20,7 @@ func main() {
 
 	user := r.PathPrefix("/user").Subrouter()
 	user.HandleFunc("/{id}", controllers.Profile).Methods("GET")
-	//user.Use(middleware.MiddlewareAuth)
+	user.Use(middleware.MiddlewareAuth)
 
 	r.HandleFunc("/", controllers.TestUp).Methods("GET")
 	r.HandleFunc("/register", controllers.Register).Methods("POST")
