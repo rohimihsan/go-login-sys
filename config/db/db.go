@@ -1,4 +1,4 @@
-package config
+package db
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const dbname = "test"
+const dbname = "gologinsys"
 
 func Con() (*mongo.Database, error) {
 	clientOption := options.Client().ApplyURI("mongodb://localhost:27017")
