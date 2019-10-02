@@ -19,7 +19,7 @@ func main() {
 	t.Use(middleware.MiddlewareAllowOnlyGet)
 
 	user := r.PathPrefix("/user").Subrouter()
-	user.HandleFunc("/{id}", controllers.Profile).Methods("GET")
+	user.HandleFunc("/profile", controllers.Profile).Methods("GET")
 	user.Use(middleware.MiddlewareAuth)
 
 	r.HandleFunc("/", controllers.TestUp).Methods("GET")
