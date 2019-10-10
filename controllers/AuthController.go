@@ -17,15 +17,23 @@ import (
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	email := r.FormValue("email")
-	pass := r.FormValue("password")
-	//hash := r.FormValue("hash")
-
 	var res models.ResponseResult
+	var result user.User
+
+	//get data from body
+	decoder := json.NewDecoder(r.Body)
+
+	err := decoder.Decode(&result)
+	if err != nil {
+		panic(err)
+	}
+
+	email := result.Email
+	pass := result.Password
 
 	//validate input
 	v := validator.New()
-	err := v.Struct(user.User{
+	err = v.Struct(user.User{
 		Firstname: " ", //bypass required check
 		Lastname:  " ", //bypass required check
 		Email:     email,
@@ -33,8 +41,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
+		res.Result = err.Error()
 		res.Error = err.Error()
-		res.Data = err.(validator.ValidationErrors)
+		res.Data = result
+
+		w.WriteHeader(http.StatusNotAcceptable)
 
 		json.NewEncoder(w).Encode(res)
 		return
@@ -42,8 +53,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	//get db
 	db, _ := db.Con()
-
-	var result user.User
 
 	//check for mail
 	email_filter := bson.D{{"email", email}}
@@ -53,7 +62,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.Error = err.Error()
-		//res.Data = result
+		res.Result = "Email not found"
+		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode(res)
 		return
 	}
@@ -61,7 +71,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	match := CheckPasswordHash(pass, result.Password)
 
 	if !match {
+		res.Error = "Email and Password does not match"
 		res.Result = "Email and Password does not match"
+		w.WriteHeader(http.StatusNotAcceptable)
+
 		json.NewEncoder(w).Encode(res)
 		return
 	}
@@ -85,11 +98,21 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	c := &http.Cookie{
+		Name:     "token",
+		Value:    token,
+		HttpOnly: true,
+		Domain:   "localhost",
+		Path:     "/",
+	}
+
+	http.SetCookie(w, c)
+
 	result.Password = ""
 	res.Result = "Login success"
-	res.Data = bson.D{
-		{"User", result},
-		{"Token", token},
+	res.Data = bson.M{
+		"User":  result,
+		"Token": token,
 	}
 	json.NewEncoder(w).Encode(res)
 	return
